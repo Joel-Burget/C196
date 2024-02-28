@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="30dp"
+    tools:context=".AddTermActivity">
+
+    <EditText
+        android:id="@+id/name_input"
+        android:layout_width="350dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="150dp"
+        android:paddingHorizontal="10dp"
+        android:ems="10"
+        android:hint="Term Name"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/start_date_input"
+        android:layout_width="350dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="16dp"
+        android:paddingHorizontal="10dp"
+        android:ems="10"
+        android:hint="Term Start Date"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name_input" />
+
+    <EditText
+        android:id="@+id/end_date_input"
+        android:layout_marginTop="16dp"
+        android:layout_height="65dp"
+        android:layout_width="350dp"
+        android:paddingHorizontal="10dp"
+        android:ems="10"
+        android:hint="Term End Date"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/start_date_input" />
+
+    <Button
+        android:id="@+id/add_button"
+        android:layout_width="347dp"
+        android:layout_height="69dp"
+        android:layout_marginTop="16dp"
+        android:text="Add"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/end_date_input" />
+</androidx.constraintlayout.widget.ConstraintLayout>

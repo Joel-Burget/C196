@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/detail_term_name_text"
+        android:layout_width="177dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="4dp"
+        android:text="Course Name"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/detail_term_start_date_text"
+        android:layout_width="184dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="11dp"
+        android:text="Start Date"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toStartOf="@+id/detail_term_end_date_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_term_name_text" />
+
+    <TextView
+        android:id="@+id/detail_term_end_date_text"
+        android:layout_width="175dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="15dp"
+        android:text="End Date"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_term_name_text" />
+
+    <TextView
+        android:id="@+id/detail_instructor_name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="11dp"
+        android:text="Instructor Name"
+        app:layout_constraintBottom_toTopOf="@+id/examRecycler"
+        app:layout_constraintEnd_toStartOf="@+id/detail_instructor_phone_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_term_start_date_text" />
+
+    <TextView
+        android:id="@+id/detail_instructor_phone_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="11dp"
+        android:text="Instructor Phone"
+        app:layout_constraintBottom_toTopOf="@+id/examRecycler"
+        app:layout_constraintEnd_toStartOf="@+id/detail_instructor_email_text"
+        app:layout_constraintStart_toEndOf="@+id/detail_instructor_name_text"
+        app:layout_constraintTop_toBottomOf="@+id/detail_term_start_date_text" />
+
+    <TextView
+        android:id="@+id/detail_instructor_email_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="11dp"
+        android:text="Instructor Email"
+        app:layout_constraintBottom_toTopOf="@+id/examRecycler"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_term_end_date_text" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/examRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="150dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

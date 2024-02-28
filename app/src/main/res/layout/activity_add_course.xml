@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddCourseActivity">
+
+    <EditText
+        android:id="@+id/course_name_input"
+        android:layout_width="350dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="75dp"
+        android:ems="10"
+        android:hint="Course Name"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/course_start_date_input"
+        android:layout_width="350dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="Course Start Date"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/course_name_input" />
+
+    <EditText
+        android:id="@+id/course_end_date_input"
+        android:layout_width="350dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="Course End Date"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/course_start_date_input" />
+
+    <Spinner
+        android:id="@+id/course_status_spinner"
+        android:layout_width="350dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/course_end_date_input" />
+
+    <EditText
+        android:id="@+id/course_instructor_name"
+        android:layout_width="350dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="Instructor Name"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/course_status_spinner" />
+
+    <EditText
+        android:id="@+id/course_instructor_phone_number"
+        android:layout_width="350dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="Instructor Phone Number"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/course_instructor_name" />
+
+    <EditText
+        android:id="@+id/course_instructor_email"
+        android:layout_width="350dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="Instructor Email"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/course_instructor_phone_number" />
+
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/course_instructor_email" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
