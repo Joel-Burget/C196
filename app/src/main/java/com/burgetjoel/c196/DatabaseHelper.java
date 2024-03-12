@@ -182,4 +182,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             Toast.makeText(context, "Add Success", Toast.LENGTH_SHORT).show();
         }
     }
+    Cursor readCourses(int ID){
+        String query = "SELECT * FROM " + CourseTable.DATABASE_TABLE_COURSE + " WHERE TERM_ID = '"
+                + ID + "';";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor courseCursor = null;
+        if(db != null){
+            courseCursor = db.rawQuery(query, null);
+        }
+        return courseCursor;
+    }
+
 }

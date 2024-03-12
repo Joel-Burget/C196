@@ -73,6 +73,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        finish();
+        startActivity(getIntent());
+    }
+
     void storeTermsInArrays(){
         Cursor cursor = termDB.readAllTerms();
 

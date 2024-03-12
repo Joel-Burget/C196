@@ -26,6 +26,7 @@ public class AddTermActivity extends AppCompatActivity {
             public void onClick(View v) {
                 DatabaseHelper myDB = new DatabaseHelper(AddTermActivity.this);
                 myDB.addTerm(name_input.getText().toString().trim(), start_date_input.getText().toString().trim(), end_date_input.getText().toString().trim());
+                finish();
             }
         });
     }

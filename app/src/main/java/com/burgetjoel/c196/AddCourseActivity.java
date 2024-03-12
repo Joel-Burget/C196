@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.Toast;
 
 public class AddCourseActivity extends Activity implements OnItemSelectedListener {
 
@@ -32,7 +33,7 @@ public class AddCourseActivity extends Activity implements OnItemSelectedListene
         instructor_name = findViewById(R.id.course_instructor_name);
         instructor_phone = findViewById(R.id.course_instructor_phone_number);
         instructor_email = findViewById(R.id.course_instructor_email);
-
+        getAndSetIntentData();
 
         //creating spinner adapter
         courseSpinner = findViewById(R.id.course_status_spinner);
@@ -54,6 +55,7 @@ public class AddCourseActivity extends Activity implements OnItemSelectedListene
                 myDB.addCourse(termID, course_name.getText().toString().trim(), course_start_date.getText().toString().trim(), course_end_date.getText().toString().trim(),
                         instructor_name.getText().toString().trim(), instructor_phone.getText().toString().trim(), instructor_email.getText().toString().trim(),
                         courseStatus);
+                finish();
             }
         });
     }
@@ -67,5 +69,13 @@ public class AddCourseActivity extends Activity implements OnItemSelectedListene
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         courseStatus = parent.getItemAtPosition(1).toString();
+    }
+
+    public void getAndSetIntentData(){
+        if(getIntent().hasExtra("termID")){
+            termID = getIntent().getStringExtra("termID");
+        }else{
+            Toast.makeText(this, "No intent data", Toast.LENGTH_SHORT).show();
+        }
     }
 }
