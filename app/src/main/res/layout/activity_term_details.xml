@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/detail_term_name_text"
+        android:id="@+id/detail_course_name_text"
         android:layout_width="177dp"
         android:layout_height="44dp"
         android:layout_marginTop="4dp"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/detail_term_start_date_text"
+        android:id="@+id/detail_course_start_date_text"
         android:layout_width="184dp"
         android:layout_height="47dp"
         android:layout_marginTop="20dp"
@@ -28,12 +28,12 @@
         android:text="Start Date"
         android:textAlignment="center"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toStartOf="@+id/detail_term_end_date_text"
+        app:layout_constraintEnd_toStartOf="@+id/detail_course_status_text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detail_term_name_text" />
+        app:layout_constraintTop_toBottomOf="@+id/detail_course_name_text" />
 
     <TextView
-        android:id="@+id/detail_term_end_date_text"
+        android:id="@+id/detail_course_status_text"
         android:layout_width="175dp"
         android:layout_height="48dp"
         android:layout_marginTop="19dp"
@@ -42,7 +42,7 @@
         android:textAlignment="center"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detail_term_name_text" />
+        app:layout_constraintTop_toBottomOf="@+id/detail_course_name_text" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/courseRecycler"
@@ -71,4 +71,16 @@
         app:layout_constraintTop_toTopOf="@+id/courseRecycler"
         app:layout_constraintVertical_bias="0.933"
         app:srcCompat="@drawable/icon_add" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/edit_course_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.107"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_edit" />
 </androidx.constraintlayout.widget.ConstraintLayout>

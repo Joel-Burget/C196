@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuView;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -50,6 +51,10 @@ public class UpdateTermActivity extends AppCompatActivity {
                 String newStart = start_date_update.getText().toString();
                 String newEnd = end_date_update.getText().toString();
                 myDB.updateTermData(id, newName, newStart, newEnd);
+                setResult(RESULT_OK, null);
+                Intent intent = new Intent(UpdateTermActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -62,15 +67,15 @@ public class UpdateTermActivity extends AppCompatActivity {
     }
 
     void getAndSetIntentData(){
-        if(getIntent().hasExtra("term_id") && getIntent().hasExtra("Term Name") && getIntent().hasExtra("Term Start Date") && getIntent().hasExtra("Term End Date")){
+        if(getIntent().hasExtra("term_id") && getIntent().hasExtra("termName") && getIntent().hasExtra("termStartDate") && getIntent().hasExtra("termEndDate")){
 
             //getting ID from database
             id = getIntent().getStringExtra("term_id");
 
             //getting Data from intent
-            name = getIntent().getStringExtra("Term Name");
-            startDate = getIntent().getStringExtra("Term Start Date");
-            endDate = getIntent().getStringExtra("Term End Date");
+            name = getIntent().getStringExtra("termName");
+            startDate = getIntent().getStringExtra("termStartDate");
+            endDate = getIntent().getStringExtra("termEndDate");
 
             //setting data from intent
             name_update.setText(name);

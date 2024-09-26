@@ -1,58 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.core.widget.NestedScrollView
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AddCourseActivity">
 
     <EditText
-        android:id="@+id/course_name_input"
+        android:id="@+id/course_name_update"
         android:layout_width="350dp"
         android:layout_height="65dp"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="68dp"
         android:ems="10"
         android:hint="Course Name"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/course_start_date_input"
-        android:layout_width="350dp"
-        android:layout_height="65dp"
-        android:layout_marginTop="16dp"
+    <TextView
+        android:id="@+id/course_start_date_update"
+        android:layout_width="294dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
-        android:hint="Course Start Date"
-        android:inputType="text"
+        android:hint="00/00/00"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/course_name_input" />
+        app:layout_constraintTop_toBottomOf="@+id/course_name_update" />
 
-    <EditText
-        android:id="@+id/course_end_date_input"
-        android:layout_width="350dp"
-        android:layout_height="65dp"
-        android:layout_marginTop="16dp"
+    <TextView
+        android:id="@+id/course_end_date_update"
+        android:layout_width="297dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
-        android:hint="Course End Date"
-        android:inputType="text"
+        android:hint="00/00/00"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/course_start_date_input" />
+        app:layout_constraintTop_toBottomOf="@+id/course_start_date_update" />
 
     <Spinner
-        android:id="@+id/course_status_spinner"
+        android:id="@+id/course_status_spinner_update"
         android:layout_width="350dp"
         android:layout_height="65dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="68dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/course_end_date_input" />
+        app:layout_constraintTop_toBottomOf="@+id/course_end_date_update" />
 
     <EditText
-        android:id="@+id/course_instructor_name"
+        android:id="@+id/course_instructor_name_update"
         android:layout_width="350dp"
         android:layout_height="65dp"
         android:layout_marginTop="16dp"
@@ -61,41 +69,66 @@
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/course_status_spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/course_status_spinner_update" />
 
     <EditText
-        android:id="@+id/course_instructor_phone_number"
+        android:id="@+id/course_instructor_phone_number_update"
         android:layout_width="350dp"
         android:layout_height="65dp"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="Instructor Phone Number"
-        android:inputType="text"
+        android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/course_instructor_name" />
+        app:layout_constraintTop_toBottomOf="@+id/course_instructor_name_update" />
 
     <EditText
-        android:id="@+id/course_instructor_email"
+        android:id="@+id/course_instructor_email_update"
         android:layout_width="350dp"
         android:layout_height="65dp"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="Instructor Email"
-        android:inputType="text"
+        android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/course_instructor_phone_number" />
+        app:layout_constraintTop_toBottomOf="@+id/course_instructor_phone_number_update" />
 
     <Button
-        android:id="@+id/save_button"
+        android:id="@+id/save_edit_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Save"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.776"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/course_instructor_email" />
+        app:layout_constraintTop_toBottomOf="@+id/course_notes_update" />
+
+    <EditText
+        android:id="@+id/course_notes_update"
+        android:layout_width="350dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="16dp"
+        android:hint="Notes"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/course_instructor_email_update" />
+
+    <CheckBox
+        android:id="@+id/course_checkbox"
+        android:layout_width="291dp"
+        android:layout_height="41dp"
+        android:text="Set Alarm?"
+        app:layout_constraintBottom_toTopOf="@+id/course_status_spinner_update"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/course_end_date_update" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

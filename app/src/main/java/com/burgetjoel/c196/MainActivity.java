@@ -5,14 +5,20 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,34 +41,34 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton add_term_button;
     ImageView empty_imageview;
     TextView no_data;
+    public static final String CHANNEL_ID = "general_notifications_channel";
+    Button termTrackerButton, schedulerButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View layout1 = inflater.inflate(R.layout.activity_main, null);
+        View layout2 = inflater.inflate(R.layout.activity_startup, null);
 
-        recyclerView = findViewById(R.id.termRecycler);
-        empty_imageview = findViewById(R.id.empty_imageview);
-        no_data = findViewById(R.id.no_data);
+        setContentView(layout2);
+        termTrackerButton = findViewById(R.id.termTrackerButton);
+        schedulerButton = findViewById(R.id.schedulerButton);
 
-        termDB = new DatabaseHelper(MainActivity.this);
-        term_id = new ArrayList<>();
-        term_name = new ArrayList<>();
-        term_start_date = new ArrayList<>();
-        term_end_date = new ArrayList<>();
-        storeTermsInArrays();
-        add_term_button = findViewById(R.id.add_term_button);
-        add_term_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AddTermActivity.class);
-                startActivity(intent);
-            }
+        createNotificationChannel();
+        NotificationHelper.createNotificationChannel(this);
+
+        termTrackerButton.setOnClickListener(v -> {
+            setContentView(layout1);
+            setLayoutOne();
         });
 
-        customAdapter = new TermAdapter(MainActivity.this, this, term_id, term_name, term_start_date, term_end_date);
-        recyclerView.setAdapter(customAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+        schedulerButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, SchedulerActivity.class);
+            startActivity(intent);
+        });
+
     }
 
     @Override
@@ -129,12 +135,61 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        builder.setNegativeButton("No", (dialog, which) -> {
 
-            }
         });
         builder.create().show();
+    }
+
+    private void createNotificationChannel(){
+            CharSequence name = "Term Tracker";
+            String description = "Alerts for activity start or end";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("general_notifications_channel", name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1) {
+            // Check if the notification permission was granted
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                NotificationPermissionHelper.checkNotificationPermission(this);
+                NotificationHelper.createNotificationChannel(this);
+                NotificationHelper.showNotification(this, "test", "Fred is a kitty.");
+
+            } else {
+                // Permission denied, handle this accordingly
+                Log.i("Error: ", "Cannot send notification without permission");
+            }
+        }
+    }
+
+    public void setLayoutOne(){
+        recyclerView = findViewById(R.id.termRecycler);
+        empty_imageview = findViewById(R.id.empty_imageview);
+        no_data = findViewById(R.id.no_data);
+
+        termDB = new DatabaseHelper(MainActivity.this);
+        term_id = new ArrayList<>();
+        term_name = new ArrayList<>();
+        term_start_date = new ArrayList<>();
+        term_end_date = new ArrayList<>();
+        storeTermsInArrays();
+        add_term_button = findViewById(R.id.add_term_button);
+        add_term_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AddTermActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        customAdapter = new TermAdapter(MainActivity.this, this, term_id, term_name, term_start_date, term_end_date);
+        recyclerView.setAdapter(customAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
     }
 }

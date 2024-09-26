@@ -5,14 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    private Context context;
+    private final Context context;
     static final String DATABASE_NAME = "TERM.DB";
     static final int DATABASE_VERSION = 1;
 
@@ -41,6 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         static final String  INSTRUCTOR_NAME = "instructorName";
         static final String INSTRUCTOR_PHONE_NUMBER = "instructorPhoneNumber";
         static final String INSTRUCTOR_EMAIL = "instructorEmail";
+        static final String NOTES = "notes";
 
 
         private static final String CREATE_DB_COURSE = "CREATE TABLE " + DATABASE_TABLE_COURSE + "( " +
@@ -53,10 +53,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 INSTRUCTOR_NAME + " TEXT, " +
                 INSTRUCTOR_PHONE_NUMBER + " TEXT, " +
                 INSTRUCTOR_EMAIL + " TEXT, " +
+                NOTES + " TEXT DEFAULT 'no notes'," +
                 "FOREIGN KEY(" + TERM_ID + ") REFERENCES " +
                 TermTable.DATABASE_TABLE_TERM + "(" + TermTable.TERM_ID_COLUMN + ") ON DELETE CASCADE)";
 
     }
+
+    //Exam Table
+    private static final class AssessmentTable {
+        static final String DATABASE_TABLE_ASSESSMENT = "exam";
+        static final String ASSESSMENT_ID  = "assessmentID";
+        static final String COURSE_ID = "courseID";
+        static final String ASSESSMENT_DATE = "assessment_date";
+        static final String ASSESSMENT_NAME = "assessment_name";
+        static final String ASSESSMENT_TYPE = "assessment_type";
+        static final String START_TIME = "start_time";
+        static final String END_TIME = "end_time";
+        static final String NOTES = "notes";
+
+
+        private static final String CREATE_DB_ASSESSMENT = "CREATE TABLE " + DATABASE_TABLE_ASSESSMENT+ "( " +
+                ASSESSMENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COURSE_ID + " INTEGER, " +
+                ASSESSMENT_NAME + " TEXT NOT NULL, " +
+                ASSESSMENT_DATE + " TEXT NOT NULL, " +
+                START_TIME + " TEXT NOT NULL, " +
+                END_TIME + " TEXT NOT NULL, " +
+                ASSESSMENT_TYPE + " TEXT NOT NULL, " +
+                NOTES + "TEXT, " +
+                "FOREIGN KEY(" + COURSE_ID + ") REFERENCES " +
+                CourseTable.DATABASE_TABLE_COURSE + "(" + CourseTable.COURSE_ID + ") ON DELETE CASCADE)";
+
+    }
+
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -67,12 +96,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(TermTable.CREATE_DB_QUERY);
         db.execSQL(CourseTable.CREATE_DB_COURSE);
+        db.execSQL(AssessmentTable.CREATE_DB_ASSESSMENT);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        db.execSQL( "DROP TABLE IF EXISTS " + TermTable.DATABASE_TABLE_TERM);
+        db.execSQL("DROP TABLE IF EXISTS " + TermTable.DATABASE_TABLE_TERM);
         db.execSQL("DROP TABLE IF EXISTS " + CourseTable.DATABASE_TABLE_COURSE);
+        db.execSQL("DROP TABLE IF EXISTS " + AssessmentTable.DATABASE_TABLE_ASSESSMENT);
         onCreate(db);
     }
 
@@ -149,11 +180,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     void deleteOneTermRow(String row_id){
         SQLiteDatabase db = this.getWritableDatabase();
-        long result = db.delete(TermTable.DATABASE_TABLE_TERM, "_id=?", new String[]{row_id});
-        if(result == -1){
-            Toast.makeText(context, "Failed to delete", Toast.LENGTH_SHORT).show();
+        String query = "SELECT * FROM " + CourseTable.DATABASE_TABLE_COURSE + " WHERE " + CourseTable.TERM_ID + " = "
+                + row_id + ";";
+        Cursor numCourses = db.rawQuery(query, null);
+        if(numCourses.getCount() > 0){
+            Toast.makeText(context, "Cannot Delete Terms With Active Courses", Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(context, "Successfully Deleted", Toast.LENGTH_SHORT).show();
+            long result = db.delete(TermTable.DATABASE_TABLE_TERM, "_id=?", new String[]{row_id});
+            if(result == -1){
+                Toast.makeText(context, "Failed to delete", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(context, "Successfully Deleted", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -162,7 +200,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM " + TermTable.DATABASE_TABLE_TERM);
     }
 
-    void addCourse(String termID, String courseName, String startDate, String endDate, String instructorName, String instructorPhone, String instructorEmail, String courseStatus){
+    void addCourse(String termID, String courseName, String startDate, String endDate, String instructorName, String instructorPhone, String instructorEmail, String courseStatus, String courseNotes){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -174,6 +212,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(CourseTable.INSTRUCTOR_PHONE_NUMBER, instructorPhone);
         cv.put(CourseTable.INSTRUCTOR_EMAIL, instructorEmail);
         cv.put(CourseTable.COURSE_STATUS, courseStatus);
+        cv.put(CourseTable.NOTES, courseNotes);
 
         long result = db.insert(CourseTable.DATABASE_TABLE_COURSE, null, cv);
         if(result == -1){
@@ -192,6 +231,104 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             courseCursor = db.rawQuery(query, null);
         }
         return courseCursor;
+    }
+
+    void updateCourseData(String row_id, String name, String start_date, String end_date, String course_status, String instructor_name, String instructor_email, String instructor_phone, String notes){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(CourseTable.COURSE_NAME, name);
+        cv.put(CourseTable.COURSE_START_DATE, start_date);
+        cv.put(CourseTable.COURSE_END_END_DATE, end_date);
+        cv.put(CourseTable.COURSE_STATUS, course_status);
+        cv.put(CourseTable.INSTRUCTOR_NAME, instructor_name);
+        cv.put(CourseTable.INSTRUCTOR_EMAIL, instructor_email);
+        cv.put(CourseTable.INSTRUCTOR_PHONE_NUMBER, instructor_phone);
+        cv.put(CourseTable.NOTES, notes);
+
+        long result = db.update(CourseTable.DATABASE_TABLE_COURSE, cv, "cid=?", new String[]{row_id});
+        if(result == -1){
+            Toast.makeText(context, "Failed to update course", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(context, "Course updated successfully", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    void deleteCourseRow(String row_id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + AssessmentTable.DATABASE_TABLE_ASSESSMENT + " WHERE " + AssessmentTable.COURSE_ID + " = "
+                + row_id + ";";
+        Cursor numCourses = db.rawQuery(query, null);
+        if(numCourses.getCount() > 0){
+            Toast.makeText(context, "Cannot Delete Courses With Active Assessments", Toast.LENGTH_SHORT).show();
+        }else{
+            long result = db.delete(CourseTable.DATABASE_TABLE_COURSE, "cid=?", new String[]{row_id});
+            if(result == -1){
+                Toast.makeText(context, "Failed to delete", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(context, "Successfully Deleted", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    Cursor readAssessments(int ID){
+        String assessmentQuery = "SELECT * FROM " + AssessmentTable.DATABASE_TABLE_ASSESSMENT + " WHERE " + AssessmentTable.COURSE_ID + " = "
+                + ID + ";";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor courseCursor = null;
+        if(db != null){
+            courseCursor = db.rawQuery(assessmentQuery, null);
+        }
+        return courseCursor;
+    }
+
+    void addAssessment(String course_id, String assessment_name, String assessment_type, String assessment_date, String start_time, String end_time){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(AssessmentTable.COURSE_ID, course_id);
+        cv.put(AssessmentTable.ASSESSMENT_NAME, assessment_name);
+        cv.put(AssessmentTable.ASSESSMENT_TYPE, assessment_type);
+        cv.put(AssessmentTable.ASSESSMENT_DATE, assessment_date);
+        cv.put(AssessmentTable.START_TIME, start_time);
+        cv.put(AssessmentTable.END_TIME, end_time);
+
+        long result = db.insert(AssessmentTable.DATABASE_TABLE_ASSESSMENT, null, cv);
+        if(result == -1){
+            Toast.makeText(context, "Add Assessment Failed", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(context, "Added Assessment Successfully", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    void editAssessment(String row_id, String assessment_name, String assessment_type, String assessment_date, String start_time, String end_time){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(AssessmentTable.ASSESSMENT_NAME, assessment_name);
+        cv.put(AssessmentTable.ASSESSMENT_TYPE, assessment_type);
+        cv.put(AssessmentTable.ASSESSMENT_DATE, assessment_date);
+        cv.put(AssessmentTable.START_TIME, start_time);
+        cv.put(AssessmentTable.END_TIME, end_time);
+
+        long result = db.update(AssessmentTable.DATABASE_TABLE_ASSESSMENT, cv, "assessmentID=?", new String[]{row_id});
+        if(result == -1){
+            Toast.makeText(context, "Add Assessment Failed", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(context, "Added Assessment Successfully", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    void deleteAssessmentRow(String row_id){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        long result = db.delete(AssessmentTable.DATABASE_TABLE_ASSESSMENT, "assessmentID=?", new String[]{row_id});
+
+        if(result == -1){
+            Toast.makeText(context, "Failed to delete", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(context, "Successfully Deleted", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

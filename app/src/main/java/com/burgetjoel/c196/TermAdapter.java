@@ -18,9 +18,12 @@ import java.util.ArrayList;
 
 public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder> {
 
-    private Context context;
+    private final Context context;
     Activity activity;
-    private ArrayList term_id, term_name, term_start_date, term_end_date;
+    private final ArrayList term_id;
+    private final ArrayList term_name;
+    private final ArrayList term_start_date;
+    private final ArrayList term_end_date;
     Animation translate_anim;
 
     TermAdapter(Activity activity, Context context, ArrayList term_id, ArrayList term_name, ArrayList term_start_date, ArrayList term_end_date){
@@ -66,9 +69,9 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
         LinearLayout termLayout;
         public TermViewHolder(@NonNull View itemView) {
             super(itemView);
-            term_name_text = itemView.findViewById(R.id.term_name_text);
-            term_start_date_text = itemView.findViewById(R.id.course_start_date_text);
-            term_end_date_text = itemView.findViewById(R.id.course_end_date_text);
+            term_name_text = itemView.findViewById(R.id.assessment_name_text);
+            term_start_date_text = itemView.findViewById(R.id.assessment_date_text);
+            term_end_date_text = itemView.findViewById(R.id.assessment_start_time_text);
             termLayout = itemView.findViewById(R.id.termlayout);
             //adding animation
             translate_anim = AnimationUtils.loadAnimation(context, R.anim.translate_amin);

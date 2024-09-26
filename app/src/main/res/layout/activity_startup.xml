@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#040404">
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="376dp"
+        android:layout_height="124dp"
+        android:layout_marginTop="124dp"
+        android:text="TermTracker"
+        android:textColor="#737272"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.542"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/termTrackerButton"
+        android:layout_width="315dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="192dp"
+        android:text="TermTracker"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleText" />
+
+    <Button
+        android:id="@+id/schedulerButton"
+        android:layout_width="315dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="16dp"
+        android:text="Scheduler"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/termTrackerButton" />
+</androidx.constraintlayout.widget.ConstraintLayout>

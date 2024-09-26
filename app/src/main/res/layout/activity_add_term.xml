@@ -20,39 +20,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/start_date_input"
+    <TextView
+        android:id="@+id/termStartDate"
         android:layout_width="350dp"
         android:layout_height="65dp"
-        android:layout_marginTop="16dp"
-        android:paddingHorizontal="10dp"
+        android:layout_marginTop="24dp"
         android:ems="10"
-        android:hint="Term Start Date"
-        android:inputType="text"
+        android:hint="00/00/00"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name_input" />
 
-    <EditText
-        android:id="@+id/end_date_input"
-        android:layout_marginTop="16dp"
-        android:layout_height="65dp"
+    <TextView
+        android:id="@+id/termEndDate"
         android:layout_width="350dp"
-        android:paddingHorizontal="10dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="24dp"
         android:ems="10"
-        android:hint="Term End Date"
-        android:inputType="text"
+        android:hint="00/00/00"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/start_date_input" />
+        app:layout_constraintTop_toBottomOf="@+id/termStartDate" />
 
     <Button
         android:id="@+id/add_button"
         android:layout_width="347dp"
         android:layout_height="69dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="28dp"
         android:text="Add"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/end_date_input" />
+        app:layout_constraintTop_toBottomOf="@+id/termEndDate" />
 </androidx.constraintlayout.widget.ConstraintLayout>
