@@ -75,6 +75,7 @@ public class EditCourseActivity extends Activity implements AdapterView.OnItemSe
             setResult(RESULT_OK);
             finish();
         });
+
     }
 
     @Override

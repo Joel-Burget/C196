@@ -88,6 +88,7 @@ public class AssessmentDetailsActivity extends AppCompatActivity {
             myDB.deleteAssessmentRow(String.valueOf(Integer.parseInt(id)));
             finish();
         });
+
     }
 
     @Override

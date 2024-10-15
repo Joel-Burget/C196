@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Add Term"
+        android:id="@+id/scheduler_add"
+        android:icon="@drawable/icon_add"
+        app:showAsAction="always" />
+    <item android:title="Edit Term"
+        android:id="@+id/scheduler_edit"
+        android:icon="@drawable/baseline_edit_24"
+        app:showAsAction="always" />
+
+
+</menu>

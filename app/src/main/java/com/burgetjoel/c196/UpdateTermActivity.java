@@ -64,6 +64,7 @@ public class UpdateTermActivity extends AppCompatActivity {
                 confirmDialog();
             }
         });
+
     }
 
     void getAndSetIntentData(){

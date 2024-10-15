@@ -52,7 +52,6 @@ public class AddCourseActivity extends Activity implements OnItemSelectedListene
         courseSpinner.setAdapter(adapter);
         courseSpinner.setOnItemSelectedListener(this);
 
-
         course_start_date.setOnClickListener(v ->{
             startPicker.showDatePicker(course_start_date);
         });
@@ -61,50 +60,47 @@ public class AddCourseActivity extends Activity implements OnItemSelectedListene
             startPicker.showDatePicker(course_end_date);
         });
 
-
         save_button = findViewById(R.id.save_edit_button);
-        save_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DatabaseHelper myDB = new DatabaseHelper(AddCourseActivity.this);
-                myDB.addCourse(termID, course_name.getText().toString().trim(), course_start_date.getText().toString().trim(), course_end_date.getText().toString().trim(),
-                        instructor_name.getText().toString().trim(), instructor_phone.getText().toString().trim(), instructor_email.getText().toString().trim(),
-                        courseStatus, course_notes.getText().toString().trim());
-                try {
+        save_button.setOnClickListener(v -> {
+            DatabaseHelper myDB = new DatabaseHelper(AddCourseActivity.this);
+            myDB.addCourse(termID, course_name.getText().toString().trim(), course_start_date.getText().toString().trim(), course_end_date.getText().toString().trim(),
+                    instructor_name.getText().toString().trim(), instructor_phone.getText().toString().trim(), instructor_email.getText().toString().trim(),
+                    courseStatus, course_notes.getText().toString().trim());
+            try {
 
-                    if(checkbox.isChecked()){
-                        String[] startValues = course_start_date.getText().toString().split("/");  // Split by slash
-                        if (startValues.length == 3) {
-                            int day = Integer.parseInt(startValues[0]);
-                            int month = Integer.parseInt(startValues[1]);
-                            int year = Integer.parseInt(startValues[2]);
-                            int hour = 8;
-                            int minute = 0;
+                if(checkbox.isChecked()){
+                    String[] startValues = course_start_date.getText().toString().split("/");  // Split by slash
+                    if (startValues.length == 3) {
+                        int day = Integer.parseInt(startValues[0]);
+                        int month = Integer.parseInt(startValues[1]);
+                        int year = Integer.parseInt(startValues[2]);
+                        int hour = 8;
+                        int minute = 0;
 
-                            alarmHelper.scheduleExactAlarm(hour, minute, day, year, month, "Course Start", "Course has started", AlarmReceiver.class);
-                        } else {
-                            Log.e("Error", "Date format is incorrect, expected dd/MM/yyyy.");
-                        }
-
-                        String[] endValues = course_end_date.getText().toString().split("/");  // Split by slash
-                        if (endValues.length == 3) {
-                            int day = Integer.parseInt(endValues[0]);
-                            int month = Integer.parseInt(endValues[1]);
-                            int year = Integer.parseInt(endValues[2]);
-                            int hour = 8;
-                            int minute = 0;
-                            alarmHelper.scheduleExactAlarm(hour, minute, day, year, month, "Course End", "Course has ended", AlarmReceiver.class);
-                    }
-
+                        alarmHelper.scheduleExactAlarm(hour, minute, day, year, month, "Course Start", "Course has started", AlarmReceiver.class);
                     } else {
                         Log.e("Error", "Date format is incorrect, expected dd/MM/yyyy.");
                     }
-                } catch (Exception e) {
-                    Log.e("Error", "Failed to parse date: " + e.getMessage());
+
+                    String[] endValues = course_end_date.getText().toString().split("/");  // Split by slash
+                    if (endValues.length == 3) {
+                        int day = Integer.parseInt(endValues[0]);
+                        int month = Integer.parseInt(endValues[1]);
+                        int year = Integer.parseInt(endValues[2]);
+                        int hour = 8;
+                        int minute = 0;
+                        alarmHelper.scheduleExactAlarm(hour, minute, day, year, month, "Course End", "Course has ended", AlarmReceiver.class);
                 }
-                finish();
+
+                } else {
+                    Log.e("Error", "Date format is incorrect, expected dd/MM/yyyy.");
+                }
+            } catch (Exception e) {
+                Log.e("Error", "Failed to parse date: " + e.getMessage());
             }
+            finish();
         });
+
     }
 
     @Override

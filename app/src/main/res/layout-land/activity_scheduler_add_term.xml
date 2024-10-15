@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:textAlignment="center"
+    android:configChanges="keyboardHidden|orientation"
+    tools:context=".SchedulerAddActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/scheduler_add_title"
+                android:layout_width="215dp"
+                android:layout_height="34dp"
+                android:text="Add a term to track"
+                android:textAlignment="center"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/scheduler_add_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:ems="10"
+                android:hint="Term Name"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/scheduler_add_start_date"
+                android:layout_width="208dp"
+                android:layout_height="48dp"
+                android:ems="10"
+                android:hint="Start Date" />
+
+            <TextView
+                android:id="@+id/scheduler_add_end_date"
+                android:layout_width="210dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="20dp"
+                android:ems="10"
+                android:hint="End Date" />
+
+            <Spinner
+                android:id="@+id/scheduler_spinner"
+                android:layout_width="219dp"
+                android:layout_height="60dp" />
+
+            <Button
+                android:id="@+id/scheduler_add_cancel_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text="Cancel" />
+
+            <Button
+                android:id="@+id/scheduler_add_term_save_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text="Save" />
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:textAlignment="center"
+    android:configChanges="keyboardHidden|orientation"
+    tools:context=".SchedulerEditActivity">
+
+    <TextView
+        android:id="@+id/scheduler_edit_title"
+        android:layout_width="215dp"
+        android:layout_height="34dp"
+        android:text="Edit a term"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.418"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.045" />
+
+    <EditText
+        android:id="@+id/scheduler_edit_name"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="88dp"
+        android:ems="10"
+        android:hint="Term Name"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/scheduler_edit_start_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.432"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scheduler_edit_title" />
+
+    <TextView
+        android:id="@+id/scheduler_edit_start_date"
+        android:layout_width="307dp"
+        android:layout_height="56dp"
+        android:ems="10"
+        android:hint="Start Date"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.462"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.35" />
+
+    <TextView
+        android:id="@+id/scheduler_edit_end_date"
+        android:layout_width="313dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="End Date"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.458"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scheduler_edit_start_date"
+        app:layout_constraintVertical_bias="0.002" />
+
+    <Button
+        android:id="@+id/scheduler_edit_cancel_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="132dp"
+        android:text="Cancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.219"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scheduler_spinner" />
+
+    <Button
+        android:id="@+id/scheduler_edit_term_save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="208dp"
+        android:text="Edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.708"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scheduler_edit_end_date" />
+
+    <Spinner
+        android:id="@+id/scheduler_spinner"
+        android:layout_width="219dp"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.442"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scheduler_edit_end_date"
+        app:layout_constraintVertical_bias="0.047" />
+
+    <Spinner
+        android:id="@+id/scheduler_term_spinner"
+        android:layout_width="323dp"
+        android:layout_height="51dp"
+        app:layout_constraintBottom_toTopOf="@+id/scheduler_edit_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.352"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scheduler_edit_title"
+        app:layout_constraintVertical_bias="0.517" />
+</androidx.constraintlayout.widget.ConstraintLayout>

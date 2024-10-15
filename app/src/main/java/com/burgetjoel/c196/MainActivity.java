@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
     public static final String CHANNEL_ID = "general_notifications_channel";
     Button termTrackerButton, schedulerButton;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

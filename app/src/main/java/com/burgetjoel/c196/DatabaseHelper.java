@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Color;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -86,6 +87,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    //Scheduler Database Table
+    private static final class SchedulerTable{
+        static final String DATABASE_TABLE_SCHEDULER = "scheduler";
+        static final String SCHEDULER_ID = "schedulerID";
+        static final String TERM_NAME = "termName";
+        static final String TERM_START_DATE = "termStartDate";
+        static final String TERM_END_DATE = "termEndDate";
+        static final String TERM_COLOR = "color";
+
+        private static final String CREATE_DB_SCHEDULER = "CREATE TABLE " + DATABASE_TABLE_SCHEDULER + "( " +
+                SCHEDULER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                TERM_NAME + " TEXT NOT NULL, " +
+                TERM_START_DATE + " TEXT NOT NULL, " +
+                TERM_END_DATE + " TEXT NOT NULL, " +
+                TERM_COLOR + " TEXT NOT NULL)";
+    }
+
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -97,6 +115,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(TermTable.CREATE_DB_QUERY);
         db.execSQL(CourseTable.CREATE_DB_COURSE);
         db.execSQL(AssessmentTable.CREATE_DB_ASSESSMENT);
+        db.execSQL(SchedulerTable.CREATE_DB_SCHEDULER);
     }
 
     @Override
@@ -104,6 +123,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TermTable.DATABASE_TABLE_TERM);
         db.execSQL("DROP TABLE IF EXISTS " + CourseTable.DATABASE_TABLE_COURSE);
         db.execSQL("DROP TABLE IF EXISTS " + AssessmentTable.DATABASE_TABLE_ASSESSMENT);
+        db.execSQL("DROP TABLE IF EXISTS " + SchedulerTable.DATABASE_TABLE_SCHEDULER);
         onCreate(db);
     }
 
@@ -328,6 +348,85 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             Toast.makeText(context, "Failed to delete", Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(context, "Successfully Deleted", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    Cursor readScheduler(String id){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT * FROM " + SchedulerTable.DATABASE_TABLE_SCHEDULER + " WHERE " + SchedulerTable.SCHEDULER_ID + " = " + id + ";";
+
+        Cursor cursor = null;
+        if(db != null){
+            cursor = db.rawQuery(query, null);
+        }
+        return cursor;
+    }
+
+    public Cursor readSchedulerByName(String termName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Properly wrap termName in single quotes
+        String query = "SELECT * FROM scheduler WHERE termName = ?";
+
+        // Use a parameterized query to avoid SQL injection and ensure correct syntax
+        return db.rawQuery(query, new String[]{termName});
+    }
+
+
+    void addScheduler(String name, String startDate, String endDate, String color){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(SchedulerTable.TERM_NAME, name);
+        cv.put(SchedulerTable.TERM_START_DATE, startDate);
+        cv.put(SchedulerTable.TERM_END_DATE, endDate);
+        cv.put(SchedulerTable.TERM_COLOR, color);
+
+        long result = db.insert(SchedulerTable.DATABASE_TABLE_SCHEDULER, null, cv);
+        if(result == -1){
+            Toast.makeText(context, "Add Failed", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(context, "Add Success", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    Cursor readAllScheduler(){
+        String query = "SELECT * FROM " + SchedulerTable.DATABASE_TABLE_SCHEDULER;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor courseCursor = null;
+        if(db != null){
+            courseCursor = db.rawQuery(query, null);
+        }
+        return courseCursor;
+    }
+
+    void editScheduler(String row_id, String name, String startDate, String endDate, String color){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(SchedulerTable.TERM_NAME, name);
+        cv.put(SchedulerTable.TERM_START_DATE, startDate);
+        cv.put(SchedulerTable.TERM_END_DATE, endDate);
+        cv.put(SchedulerTable.TERM_COLOR, color);
+
+        long result = db.update(SchedulerTable.DATABASE_TABLE_SCHEDULER, cv, "schedulerID=?", new String[]{row_id});
+        if(result == -1){
+            Toast.makeText(context, "Edit Failed", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(context, "Edit Success", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    void deleteSchedulerRow(String row_id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        long result = db.delete(SchedulerTable.DATABASE_TABLE_SCHEDULER, "schedulerID=?", new String[]{row_id});
+
+        if(result == -1){
+            Toast.makeText(context, "Delete Failed", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Delete Success", Toast.LENGTH_SHORT).show();
         }
     }
 

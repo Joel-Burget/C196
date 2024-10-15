@@ -20,6 +20,13 @@
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".SchedulerEditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SchedulerAddActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
+        <activity
             android:name=".SchedulerActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />

@@ -94,6 +94,7 @@ public class TermDetailsActivity extends AppCompatActivity {
                  startActivityForResult(intent, 1);
              }
          });
+
     }
 
     @Override

@@ -51,6 +51,7 @@ public class AddAssessmentActivity extends AppCompatActivity {
         cancelButton.setOnClickListener(v ->{
             finish();
         });
+
     }
 
     public void getAndSaveIntentData(){

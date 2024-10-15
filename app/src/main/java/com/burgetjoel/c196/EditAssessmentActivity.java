@@ -76,6 +76,7 @@ public class EditAssessmentActivity extends AppCompatActivity {
         cancelButton.setOnClickListener(v -> {
             finish();
         });
+
     }
 
     @Override

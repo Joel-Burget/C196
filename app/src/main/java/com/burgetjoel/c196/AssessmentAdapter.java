@@ -57,7 +57,6 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
 
     @Override
     public void onBindViewHolder(@NonNull AssessmentViewHolder holder, int position) {
-        Log.i("The name should be: ", assessmentNameArray.get(position));
         holder.assessmentNameText.setText(String.valueOf(assessmentNameArray.get(position)));
         holder.assessmentDateText.setText(String.valueOf(assessmentDateArray.get(position)));
         holder.assessmentTypeText.setText(String.valueOf(assessmentTypeArray.get(position)));
